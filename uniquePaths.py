@@ -4,6 +4,7 @@ class Solution(object):
     #     :type m: int
     #     :type n: int
     #     :rtype: int
+    #     this way is OK but it takes too much time
     #     """
     #     if m == 1:
     #         return 1
@@ -17,20 +18,10 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        if m == 1:
-            return 1
-        if n == 1:
-            return 1
-        a = b = 1
-        res = 1
-        while a < m and b < n:
-            res += self.uniquePaths(a + 1, b) + self.uniquePaths(a, b + 1)
-            a += 1
-            b += 1
-        # if a == m and b < n:
-        #     res += 1
-        # if b == n and a < m:
-        #     res += 1
-        return res
+        result_list = [[1 for i in range(n)] for i in range(m)]
+        for i in range(1, m):
+            for j in range(1, n):
+                result_list[i][j] = result_list[i-1][j] + result_list[i][j-1]
+        return result_list[-1][-1]
 o = Solution()
-print o.uniquePaths(3, 3)
+print o.uniquePaths(3, 2)
